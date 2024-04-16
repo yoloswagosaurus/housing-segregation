@@ -8,7 +8,90 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-  html { scroll-behavior: smooth; min-width: 1000px;}
+  /* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Style for slide images */
+.mySlides img {
+  width: 100%; /* Make the image fill the width of the container */
+  height: 500px; /* Define a fixed height */
+  object-fit: cover; /* Cover the container without changing the aspect ratio */
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgb(0,0,0);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+  html { scroll-behavior: smooth; min-width: 1000px; text-align: left; font-size:20px;}
 body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
 /* Set the width of the sidebar to 150px */
@@ -18,6 +101,41 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 </style>
+<script>
+  // Declare slideIndex globally
+  let slideIndex = 1;
+  
+  // Declare the control functions globally
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+  
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+  
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+  }
+  
+  // Initialize the slideshow when the document is fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+      showSlides(slideIndex);
+  });
+  </script>
+  
 </head>
 <body class="w3-black">
 
@@ -31,13 +149,17 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <i class="fa fa-user w3-xxlarge"></i>
     <p>BACKGROUND</p>
   </a>
+  <a href="#thesis" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-graduation-cap w3-xxlarge"></i>
+    <p>THESIS</p>
+  </a>
   <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <i class="fa fa-eye w3-xxlarge"></i>
     <p>PHOTOS</p>
   </a>
-  <a href="#Learn More" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>Learn More</p>
+  <a href="#learn-more" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-search-plus w3-xxlarge"></i>
+    <p>LEARN MORE</p>
   </a>
 </nav>
 
@@ -46,7 +168,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo">Housing Segregation</h1>
-    <p>The Story of Housing Segregation and Redlining, Specifically in Portland, OR</p>
+    <p style="font-size:20px;">The Story of Housing Segregation and Redlining, Specifically in Portland, OR</p>
     <img src="/assets/top.png" alt="boy" class="w3-image" width="992" height="1108" style="margin: 10px;">
   </header>
 
@@ -54,118 +176,85 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <div class="w3-content w3-justify w3-text-grey" id="background">
     <h2 class="w3-text-light-grey" style="text-align: left;">What is Housing Segregation?</h2>
     <hr style="width:200px" class="w3-opacity">
-    <p>Housing Segregation was a major race-targeted issue across many cities in the United States. Our research started as a search for what housing segregation truly is, and the places it comes from. Housing segregation is a form of discrimination (primarily racial discrimination) that separates and splits up groups of people into separate neighborhoods and housing situations. For example, in a city, the white citizens may live in more convenient upkept neighborhoods, while the black community may live in a neighborhood with degrading houses and few functional commodities. From this came our research question;
+    <p style="font-size:20px;">Housing Segregation was a major race-targeted issue across many cities in the United States. Our research started as a search for what housing segregation truly is, and the places it comes from. Housing segregation is a form of discrimination (primarily racial discrimination) that separates and splits up groups of people into separate neighborhoods and housing situations. For example, in a city, the white citizens may live in more convenient upkept neighborhoods, while the black community may live in a neighborhood with degrading houses and few functional commodities. From this came our research question;
     </p>
-    <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
-    <p class="w3-wide">Photography</p>
-    <div class="w3-white">
-    </div>
-    <p class="w3-wide">Web Design</p>
-    <div class="w3-white">
-    </div>
-    <p class="w3-wide">Photoshop</p>
-    <div class="w3-white">
-    </div><br>
     
     <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">11+</span><br>
-        Partners
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">55+</span><br>
-        Projects Done
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">89+</span><br>
-        Happy Clients
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">150+</span><br>
-        Meetings
-      </div>
+      <div class="w3-section" style="text-align: left; padding: 0px 20px 0px 20px;">
+        <span class="w3-xlarge">To what extent has the history of housing segregation and redlining in Portland contributed to the makeup of modern neighborhoods?
+        </span>
+    </div>
     </div>    
-    <!-- Grid for pricing tables -->
-    <h3 class="w3-padding-16 w3-text-light-grey">My Price</h3>
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half w3-margin-bottom">
-        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-grey w3-xlarge w3-padding-32">Basic</li>
-          <li class="w3-padding-16">Web Design</li>
-          <li class="w3-padding-16">Photography</li>
-          <li class="w3-padding-16">5GB Storage</li>
-          <li class="w3-padding-16">Mail Support</li>
-          <li class="w3-padding-16">
-            <h2>$ 10</h2>
-            <span class="w3-opacity">per month</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
-        </ul>
-      </div>
-
-      <div class="w3-half">
-        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-grey w3-xlarge w3-padding-32">Pro</li>
-          <li class="w3-padding-16">Web Design</li>
-          <li class="w3-padding-16">Photography</li>
-          <li class="w3-padding-16">50GB Storage</li>
-          <li class="w3-padding-16">Endless Support</li>
-          <li class="w3-padding-16">
-            <h2>$ 25</h2>
-            <span class="w3-opacity">per month</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
-        </ul>
-      </div>
-    <!-- End Grid/Pricing tables -->
-    </div>
-    
-    <!-- Testimonials -->
-    <h3 class="w3-padding-24 w3-text-light-grey">My Reputation</h3>  
-    <img src="/w3images/bandmember.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Chris Fox.</span> CEO at Mighty Schools.</p>
-    <p>John Doe saved us from a web disaster.</p><br>
-    
-    <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Rebecca Flex.</span> CEO at Company.</p>
-    <p>No one is better than John Doe.</p>
   <!-- End Background Section -->
+
+    <!-- Thesis Section -->
+    <div class="w3-content w3-justify w3-text-grey w3-padding-32" id="thesis">
+      <h2 class="w3-text-light-grey" style="text-align: left;">Our Thesis</h2>
+      <hr style="width:200px" class="w3-opacity">
+      <p style="font-size:20px;">We split our research into 3 separate questions; To what degree has progress against housing segregation been challenged, How has a history of housing segregation in Portland contributed to modern policy in law, and Compared to other U.S. cities, how much has Portland done to improve housing segregation? We individually went off to figure out the answers to our questions. Upon finishing our research (which ended up being a long and complicated process) we ended up with our thesis.</p>
+      </p>
+      <p style="font-size:20px;"><strong>Thesis Statement:</strong> Redlining and housing segregation have profoundly contributed to the diversity of Portland’s modern communities, demonstrating the relentless obstacles that activists have had to overcome in order to ensure justice for all.</p>   
+    <!-- End Thesis Section -->
+
+  <!-- Photos Section -->
+  <div class="slideshow-container" id="photos" style="margin: 64px;">
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 5</div>
+    <img src="/assets/1.png" style="width:100%">
   </div>
-  
-  <!-- Portfolio Section -->
-  <div class="w3-padding-64 w3-content" id="photos">
-    <h2 class="w3-text-light-grey" style="text-align: left;">What is Housing Segregation?</h2>
-    <hr style="width:200px" class="w3-opacity">
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 5</div>
+    <img src="/assets/2.png" style="width:100%">
+  </div>
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 5</div>
+    <img src="/assets/3.png" style="width:100%">
+  </div>
+  <div class="mySlides fade">
+    <div class="numbertext">4 / 5</div>
+    <img src="/assets/4.png" style="width:100%">
+  </div>
+  <div class="mySlides fade">
+    <div class="numbertext">5 / 5</div>
+    <img src="/assets/5.png" style="width:100%">
+  </div>
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+<br>
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(4)"></span>
+  <span class="dot" onclick="currentSlide(5)"></span>
+</div>
+</div>
+  <!-- End Photos Section -->
 
-    <!-- Grid for photos -->
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half">
-        <img src="/w3images/wedding.jpg" style="width:100%">
-        <img src="/w3images/rocks.jpg" style="width:100%">
-        <img src="/w3images/sailboat.jpg" style="width:100%">
-      </div>
-
-      <div class="w3-half">
-        <img src="/w3images/underwater.jpg" style="width:100%">
-        <img src="/w3images/chef.jpg" style="width:100%">
-        <img src="/w3images/wedding.jpg" style="width:100%">
-        <img src="/w3images/p6.jpg" style="width:100%">
-      </div>
-    <!-- End photo grid -->
+    <!-- Info -->
+    <div style="display: flex; gap:50px; align-items: center;">
+      <div style="flex: 1;">
+          <p style="font-size:20px;">
+        1948, in the case Shelley v. Kraemer the Supreme Court ruled that it should no longer be legal to discriminate against people of different races, ethnicities, religions, or genders while selling a home. This was one of the biggest steps toward equitable housing at the beginning of the civil rights movement and helped many people obtain homes from a salesperson who was required by law to be equitable. Another thing that helped fight housing segregation was the 1964 Civil Rights Act passed under the Johnson administration, which ended all segregation in any public place including real estate brokerages.      </p>
+      </p>
     </div>
-  <!-- End Portfolio Section -->
-  </div>
+    <div style="flex: 1;"> <!-- Ensures that the image container also takes up equal space -->
+        <img src="/assets/6.png" style="width: 80%; height: auto;"> <!-- Adjusts image to fit within the container -->
+    </div>
+</div>   
+      <p style="font-size:20px;">Compared to other cities, Portland's history with housing segregation has been… Complicated. The Albina part of Portland (now integrated into the east side) specifically was an impoverished area with failing structures and was almost entirely composed of non-white people. However, activism was sparked fairly early in Portland, both from inside and outside the poor neighborhoods, and this quickly started a pushback against racism. Portland still feels the impact of housing segregation, and likely always will, but we’re on the rise. Cities on the east side of the United States continue to feel the heavy effect of this discrimination, and compared to Portland are doing much worse. So I guess in a way, Portland has made an impressive comeback from a dark part of history.</p>   
+  </div>  
+      <!-- End Info Section -->
 
   <!-- Learn More Section -->
-  <div class="w3-padding-64 w3-content w3-text-grey" id="Learn More">
-    <h2 class="w3-text-light-grey" style="text-align: left;">What is Housing Segregation?</h2>
+  <div class="w3-padding-32 w3-content w3-text-grey" id="learn-more">
+    <h2 class="w3-text-light-grey" style="text-align: left;">Learn More About Housing Segregation</h2>
     <hr style="width:200px" class="w3-opacity">
-
-    <button class="w3-button w3-light-grey w3-padding-large w3-section"><a href="#">Learn More</a></button>
+    <p style="font-size:20px;">The fight against housing segregation is an ongoing struggle that continues to shape communities across the United States. Learning more about this critical issue can inspire you to make a difference in your community. You should explore the history of housing segregation and learn more about its causes and effects.</p>
+    
+      <a href="https://www.americanprogress.org/article/the-united-states-history-of-segregated-housing-continues-to-limit-affordable-housing/" target="_blank"><button class="w3-button w3-light-grey w3-padding-large w3-section">Click here to learn more </button></a>
+  </div>
+  
 
   <!-- End Learn More Section -->
   </div>
@@ -178,6 +267,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
 <!-- END PAGE CONTENT -->
 </div>
-
 </body>
 </html>
+
